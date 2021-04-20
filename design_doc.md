@@ -98,14 +98,109 @@ body | text
 created_at | dateTime
 updated_at | dateTime
 
+# Frontend Routes
+```
+/
+/updates
+	/[updateId]
+/art
+    /[artId]
+        /[chapterId]
+```
 
 # Layout
+
+## Pages
+### `/`
+```jsx
+<body>
+	<div>
+		<Link href="/updates">
+			<p>This site contains adult content</p>
+		</Link>
+	</div>
+</body>
+```
+
+### `/updates`
+```jsx
+<body>
+	<Layout>
+		<Post id={MostRecentPostId} />
+		<PostList />
+	</Layout>
+</body>
+```
+
+### `updates/[updateId]`
+```jsx
+<body>
+	<Layout>
+		<Post id={updateId}>
+	</Layout>
+</body>
+```
+
+### `/art`
+```jsx
+<body>
+    <Layout>
+    	<Gallery />
+    </Layout>
+</body>
+```
+
+### `art/[artId]`
+```jsx
+<body>
+	<Layout>
+		<Chapters art={artId}/>
+	</Layout>
+</body>
+```
+
+### `art/[artId]/[chapterId]`
+```jsx
+<body>
+	<Layout>
+		<ChapterNav chapter_id={chapterID}/>
+		<Comic chapter_id={chapterID} />
+		<ChapterNav />
+	</Layout>
+</body>
+```
+
 ## Components
-### Header
-```html
+- [x] `Layout`
+- [x] `Header`
+- [x] `Footer`
+- [x] `Post`
+- [x] `PostList`
+- [x] `Gallery`
+  - [x] `Thumbnail`
+- [x] `Chapters`
+- [x] `ChapterNav`
+- [x] `Comic`
+
+
+### Layout
+```jsx
 <div>
-    <h1>Home</h1>
-    <h1>Art<h1>
+	<Header />
+	<div>{children}</div>
+	<Footer />
+</div>
+```
+
+### Header
+```jsx
+<div>
+	<Link href="/updates">
+    	<h1>Updates</h1>
+	</Link>
+	<Link href="/art">
+    	<h1>Art<h1>
+	</Link>
 </div>
 ```
 
@@ -117,6 +212,43 @@ updated_at | dateTime
 </div>
 ```
 
+### Post
+```jsx
+<div>
+	<h2>{post.date}<h2>
+	<p>{post.body}</p>
+</div>
+```
+
+### PostList
+```jsx
+<div>
+	<ul>
+		{
+			posts.map((post) => (
+				<li>{post.date}</li>
+			))
+		}
+	</ul>
+</div>
+```
+
+### Gallery
+```jsx
+<div>
+    <h2>{arttype}</h2>
+    <ul>
+        {
+            pages.map((page) => (
+				<li>
+                	<Thumbnail page={page} />
+				</li>
+            ))
+        }
+    </ul>
+</div>
+```
+
 ### Thumbnail
 ```jsx
 <div>
@@ -125,45 +257,62 @@ updated_at | dateTime
 </div>
 ```
 
-### Gallery
+### Chapters
 ```jsx
 <div>
-    <h2>{type}</h2>
-    <ul>
-        {
-            pages.map((page) => (
-                <Thumbnail page={page} />
-            ))
-        }
-    </ul>
+	<h2>{Chapter Name}</h2>
+	<ul>
+		{
+			chapters.map((chapter) => (
+				<li>
+					<Thumbnail page={chapter} />
+				</li>
+			))
+		}
+	<ul>
 </div>
 ```
 
-## Pages
-### `/art`
+### ChapterNav
 ```jsx
-<body>
-    <Header />
-    <Gallery />
-    <Footer />
-</body>
+<div>
+	<p>Previous</p>
+	<select>
+	<p>Next</p>
+</div>
+```
+
+### Comic
+```jsx
+<div>
+	{
+		pages.map((page) => (
+			<img src={page.location}>
+		))
+	}
+</div>
+```
+
+# Public
+```
+/art
+	/sequences
+		/chapters
+			/pages
+	/paintings
+	/sketches
 ```
 
 # Technologies
 
-# Frontend Routes
-```
-/
-/updates
-/art
-    /[artId]
-        /[chapterId]
-```
 
-# Backend Routes
-## arts
-## tags
-## posts
+
+# Backend Routes (?)
+## `art`
+- `POST /api/art` - Creates a new piece of art
+- `DELETE /api/art` - Deletes a piece of art
+- `PATCH /api/art` - Updates a piece of art
+## `updates`
 
 # Todo
 - [ ] Proposal
@@ -171,7 +320,9 @@ updated_at | dateTime
 	- [ ] Key Feature Set
 - [ ] Schema
 - [ ] Sample State
-- [ ] Frontend Routes / Components
+- [X] Frontend Routes
+  - [x] Pages
+    - [x] Components
 - [ ] Backend Routes
 - [ ] Technology List
 	- [ ] Backend Server
