@@ -14,6 +14,7 @@ model Art {
   id Int @default(autoincrement()) @id
   title String?
   type String
+  thumbnail String
   chapters Chapter[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -23,6 +24,7 @@ model Chapter {
   id Int @default(autoincrement()) @id
   title String?
   sequenceNumber Int
+  thumbnail String
   art Art @relation(fields: [artId], references: [id])
   artId Int
   pages Page[]
