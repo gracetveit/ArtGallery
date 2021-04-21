@@ -1,0 +1,68 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Art {
+  id Int @default(autoincrement()) @id
+  title String?
+  type String
+  chapters Chapter[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Chapter {
+  id Int @default(autoincrement()) @id
+  title String?
+  sequenceNumber Int
+  art Art @relation(fields: [artId], references: [id])
+  artId Int
+  pages Page[]
+  tags Tagging[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Page {
+  id Int @default(autoincrement()) @id
+  sequenceNumber Int
+  location String
+  chapter Chapter @relation(fields: [chapterId], references: [id])
+  chapterId Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Tag {
+  id Int @default(autoincrement()) @id
+  name String
+  chapter Tagging[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([name])
+}
+
+model Tagging {
+  chapterId Int
+  tagId Int
+  chapter Chapter @relation(fields: [chapterId], references: [id])
+  tag Tag @relation(fields: [tagId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@id([chapterId, tagId])
+}
+
+model Update {
+  id Int @default(autoincrement()) @id
+  body String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
