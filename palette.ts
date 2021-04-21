@@ -1,7 +1,5 @@
 const pallete = {
-    primary: '#9900FF',
-    secondary: '#1B39CF',
-    tertiary: '#FF2EAF',
-    highlight: '#00FF04',
-    ignore: '#A786BF'
+    primary: '#8630BF',
+    secondary: '#7100B3',
+    tertiary: '#705980',
 }
