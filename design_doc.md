@@ -46,7 +46,7 @@ state = {
 column name | type | notes
 -|-|-
 id | number | primary key
-title | string | not-null, index, unique
+title | string |
 description | text |
 type | sting | not-null
 created_at | dateTime
@@ -90,7 +90,7 @@ tag_id | number | foreign key
 created_at | dateTime
 updated_at | dateTime
 
-## Posts
+## updates
 column name | type | notes
 -|-|-
 id | number | primary key
@@ -107,8 +107,6 @@ updated_at | dateTime
     /[artId]
         /[chapterId]
 ```
-
-# Layout
 
 ## Pages
 ### `/`
@@ -215,7 +213,7 @@ updated_at | dateTime
 ### Post
 ```jsx
 <div>
-	<h2>{post.date}<h2>
+	<h1>{post.date}<h1>
 	<p>{post.body}</p>
 </div>
 ```
@@ -223,6 +221,7 @@ updated_at | dateTime
 ### PostList
 ```jsx
 <div>
+	<h1>Past Updates</h1>
 	<ul>
 		{
 			posts.map((post) => (
@@ -304,27 +303,38 @@ updated_at | dateTime
 ```
 
 # Technologies
-
-
+## Backend Server
+- Prisma: SQL ORM
+## Frontend
+- Typescript
+- React
+- NextJS
 
 # Backend Routes (?)
 ## `art`
+- `GET /api/art`
+- `GET /api/art/:id`
 - `POST /api/art` - Creates a new piece of art
-- `DELETE /api/art` - Deletes a piece of art
-- `PATCH /api/art` - Updates a piece of art
+- `DELETE /api/art/:id` - Deletes a piece of art
+- `PATCH /api/art/:id` - Updates a piece of art
 ## `updates`
+- `GET /api/updates`
+- `GET /api/updates/:id`
+- `POST /api/updates`
+- `PATCH /api/updates/:id`
+- `DELETE /api/updates/:id`
 
 # Todo
-- [ ] Proposal
+- [x] Proposal
 	- [ ] Summary
 	- [ ] Key Feature Set
-- [ ] Schema
+- [x] Schema
 - [ ] Sample State
 - [X] Frontend Routes
   - [x] Pages
     - [x] Components
-- [ ] Backend Routes
-- [ ] Technology List
+- [x] Backend Routes
+- [x] Technology List
 	- [ ] Backend Server
 		- [ ] Database
 		- [ ] Testing
@@ -333,4 +343,10 @@ updated_at | dateTime
 	- [ ] Frontend
 		- [ ] Store management
 		- [ ] Testing
-- [ ] Figma Prototype
+- [x] Figma Prototype
+  - [x] `/`
+  - [x] `/updates`
+  - [x] `/updates/[updateId]`
+  - [ ] `/art`
+  - [ ] `art/[artId]`
+  - [ ] `art/[artId]/[chapterId]`
