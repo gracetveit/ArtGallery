@@ -11,8 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 res.status(200).json(feed);
                 break
             case 'POST':
-                const newArt = await create(artParams(req));
-                res.status(200).json(newArt);
+                const newChapter = await create(chapterParams(req));
+                res.status(200).json(newChapter);
                 break;
             default:
                 res.setHeader('Allow', ['GET', 'POST']);
@@ -21,37 +21,40 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 }
 
-export type art = {
+export type chapter = {
     id?: number
     title: string
-    type: string
+    sequenceNumber: number
+    artId: number
     thumbnail: string
     createdAt?: Date
     updatedAt?: Date
 }
 
-export function artParams(req: NextApiRequest) {
+export function chapterParams(req: NextApiRequest) {
     let allowedParams: any = {};
     for (let [key, value] of Object.entries(req.query)) {
         switch(key) {
-            case "art[title]":
+            case "chapter[title]":
                 allowedParams.title = value as string;
                 break
-            case "art[type]":
-                allowedParams.type = value as string;
+            case "chapter[sequence_number]":
+                allowedParams.sequenceNumber = parseInt(value as string);
                 break
-            case "art[thumbnail]":
+            case "chapter[thumbnail]":
                 allowedParams.thumbnail = value as string;
                 break
+            case "chapter[art_id]":
+                allowedParams.artId = parseInt(value as string);
         }
     }
     return allowedParams;
 }
 
 export async function index() {
-    return await prisma.art.findMany()
+    return await prisma.chapter.findMany()
 }
 
-export async function create(data: art) {
-    return await prisma.art.create({data})
+export async function create(data: chapter) {
+    return await prisma.chapter.create({data})
 }

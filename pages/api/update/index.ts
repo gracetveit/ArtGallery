@@ -11,8 +11,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 res.status(200).json(feed);
                 break
             case 'POST':
-                const newArt = await create(artParams(req));
-                res.status(200).json(newArt);
+                const newUpdate = await create(updateParams(req));
+                res.status(200).json(newUpdate);
                 break;
             default:
                 res.setHeader('Allow', ['GET', 'POST']);
@@ -21,27 +21,19 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 }
 
-export type art = {
+export type update = {
     id?: number
-    title: string
-    type: string
-    thumbnail: string
+    body: string
     createdAt?: Date
     updatedAt?: Date
 }
 
-export function artParams(req: NextApiRequest) {
+export function updateParams(req: NextApiRequest) {
     let allowedParams: any = {};
     for (let [key, value] of Object.entries(req.query)) {
         switch(key) {
-            case "art[title]":
-                allowedParams.title = value as string;
-                break
-            case "art[type]":
-                allowedParams.type = value as string;
-                break
-            case "art[thumbnail]":
-                allowedParams.thumbnail = value as string;
+            case "update[body]":
+                allowedParams.body = value as string;
                 break
         }
     }
@@ -49,9 +41,9 @@ export function artParams(req: NextApiRequest) {
 }
 
 export async function index() {
-    return await prisma.art.findMany()
+    return await prisma.update.findMany()
 }
 
-export async function create(data: art) {
-    return await prisma.art.create({data})
+export async function create(data: update) {
+    return await prisma.update.create({data})
 }
