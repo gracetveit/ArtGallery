@@ -1,5 +1,4 @@
 import { GetStaticProps } from 'next';
-import Link from 'next/link'
 
 export const getStaticProps: GetStaticProps = async () => {
     return {
@@ -7,12 +6,10 @@ export const getStaticProps: GetStaticProps = async () => {
     }
 }
 
-export default function Home() {
+export default function Gallery() {
     return (
         <div>
-            <Link href="/updates">
-                <a>This site contains adult content</a>
-            </Link>
+            <p>This is the Gallery</p>
         </div>
     )
 }

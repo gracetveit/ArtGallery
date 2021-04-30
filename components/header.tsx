@@ -7,11 +7,14 @@ export const getStaticProps: GetStaticProps = async () => {
     }
 }
 
-export default function Home() {
+export default function Header() {
     return (
         <div>
             <Link href="/updates">
-                <a>This site contains adult content</a>
+                <h1>Updates</h1>
+            </Link>
+            <Link href="/art">
+                <h1>Art</h1>
             </Link>
         </div>
     )

@@ -7,12 +7,10 @@ export const getStaticProps: GetStaticProps = async () => {
     }
 }
 
-export default function Home() {
+export default function Posting() {
     return (
         <div>
-            <Link href="/updates">
-                <a>This site contains adult content</a>
-            </Link>
+            <p>This is a Post</p>
         </div>
     )
 }

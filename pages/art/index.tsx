@@ -1,5 +1,7 @@
 import { GetStaticProps } from 'next';
-import Link from 'next/link'
+
+import Layout from '../../components/layout';
+import Gallery from '../../components/gallery';
 
 export const getStaticProps: GetStaticProps = async () => {
     return {
@@ -9,10 +11,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
 export default function Home() {
     return (
-        <div>
-            <Link href="/updates">
-                <a>This site contains adult content</a>
-            </Link>
-        </div>
+        <Layout>
+            <Gallery />
+        </Layout>
     )
 }
