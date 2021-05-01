@@ -1,15 +1,15 @@
 import { GetStaticProps } from 'next';
 
-export const getStaticProps: GetStaticProps = async () => {
-    return {
-        props: {}
-    }
-}
-
-export default function PostList() {
+export default function PostList({list}: {list: string[]}) {
     return (
         <div>
-            <p>Post List</p>
+            <ul>
+                {
+                    list.map((post) => (
+                        <li>{post}</li>
+                    ))
+                }
+            </ul>
         </div>
     )
 }

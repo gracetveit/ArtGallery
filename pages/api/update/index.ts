@@ -11,7 +11,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 res.status(200).json(feed);
                 break
             case 'POST':
-                const newUpdate = await create(updateParams(req));
+                const newUpdate = await create({body: req.body});
                 res.status(200).json(newUpdate);
                 break;
             default:
@@ -41,7 +41,13 @@ export function updateParams(req: NextApiRequest) {
 }
 
 export async function index() {
-    return await prisma.update.findMany()
+    return await prisma.update.findMany({
+        orderBy: [
+            {
+                createdAt: 'desc'
+            }
+        ]
+    })
 }
 
 export async function create(data: update) {

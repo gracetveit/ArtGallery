@@ -1,15 +1,13 @@
+import { Update } from '.prisma/client';
 import { GetStaticProps } from 'next';
 
-export const getStaticProps: GetStaticProps = async () => {
-    return {
-        props: {}
-    }
-}
-
-export default function Post() {
+export default function Post({body, date}: {body: string | undefined, date: string | undefined}) {
     return (
         <div>
-            <p>This is a Post</p>
+            <h2>{date}</h2>
+            {body?.split("\r\n\r").map(p => (
+                <p>{p}</p>
+            ))}
         </div>
     )
 }
