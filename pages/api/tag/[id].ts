@@ -4,7 +4,7 @@ import {index, tagParams} from './index'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     const id = parseInt(req.query.id as string)
-    if (req.headers.authorization != "X18YyazOyoiIJi8OS5GRdoOv") {
+    if (req.headers.authorization != process.env.AUTHENTICATION) {
         res.status(401).end("Invalid Authorization")
     } else if (await show(id) == null) {
         res.status(404).end(`Art with the id of ${id} not found`)

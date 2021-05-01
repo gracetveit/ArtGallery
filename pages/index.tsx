@@ -1,13 +1,6 @@
-import { GetStaticProps } from 'next';
 import Link from 'next/link'
 
-export const getStaticProps: GetStaticProps = async () => {
-    return {
-        props: {}
-    }
-}
-
-export default function Home() {
+export default function Home({test}: {test: string}) {
     return (
         <div>
             <Link href="/updates">

@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import prisma from '../../../lib/prisma'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.headers.authorization != "X18YyazOyoiIJi8OS5GRdoOv") {
+    if (req.headers.authorization != process.env.AUTHENTICATION) {
         res.status(401).end("Invalid Authorization")
     } else {
         switch (req.method) {
